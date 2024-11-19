@@ -1,26 +1,54 @@
 package com.feisel.fendisha.activities;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.feisel.fendisha.R;
+import com.feisel.fendisha.adapters.DetailedDailyMAdapter;
+import com.feisel.fendisha.models.DetailedDailyMModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailedDailyMealActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    List<DetailedDailyMModel> detailedDailyMModelList;
+    DetailedDailyMAdapter dailyMAdapter;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detailed_daily_meal);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        String type = getIntent().getStringExtra("type");
+
+        recyclerView = findViewById(R.id.detailed_rec);
+        imageView = findViewById(R.id.detailed_img);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        detailedDailyMModelList = new ArrayList<>();
+        dailyMAdapter = new DetailedDailyMAdapter(detailedDailyMModelList);
+        recyclerView.setAdapter(dailyMAdapter);
+
+        if (type != null && type.equalsIgnoreCase("breakfast")) {
+            detailedDailyMModelList.add(new DetailedDailyMModel("10am to 9pm", "$40", "4.4", "Description", "Breakfast", R.drawable.fav1));
+            detailedDailyMModelList.add(new DetailedDailyMModel("10am to 9pm", "$40", "4.4", "Description", "Breakfast", R.drawable.fav2));
+            detailedDailyMModelList.add(new DetailedDailyMModel("10am to 9pm", "$40", "4.4", "Description", "Breakfast", R.drawable.fav3));
+            dailyMAdapter.notifyDataSetChanged();
+        }
+        if (type != null && type.equalsIgnoreCase("sweets")) {
+            imageView.setImageResource(R.drawable.sweets);
+            detailedDailyMModelList.add(new DetailedDailyMModel("10am to 9pm", "$40", "4.4", "Description", "Sweets", R.drawable.s1));
+            detailedDailyMModelList.add(new DetailedDailyMModel("10am to 9pm", "$40", "4.4", "Description", "Sweets", R.drawable.s2));
+            detailedDailyMModelList.add(new DetailedDailyMModel("10am to 9pm", "$40", "4.4", "Description", "Sweets", R.drawable.s3));
+            dailyMAdapter.notifyDataSetChanged();
+        }
+
     }
 }

@@ -1,4 +1,9 @@
 package com.feisel.fendisha.adapters;
 
-public class UpdateVerRec {
+import com.feisel.fendisha.models.HomeVerModel;
+
+import java.util.ArrayList;
+
+public interface UpdateVerRec  {
+    public void callBack(int position, ArrayList<HomeVerModel> list);
 }

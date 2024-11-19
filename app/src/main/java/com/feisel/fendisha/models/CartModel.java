@@ -1,12 +1,12 @@
 package com.feisel.fendisha.models;
 
-public class CardModel {
+public class CartModel {
     int image;
-    String name,
-    price,
-    rating;
+    String name;
+    String price;
+    String rating;
 
-    public CardModel(int image, String name, String price, String rating) {
+    public CartModel(int image, String name, String price, String rating) {
         this.image = image;
         this.name = name;
         this.price = price;
